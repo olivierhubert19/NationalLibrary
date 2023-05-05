@@ -1,9 +1,7 @@
 package com.example.nationallibrary.Controller;
 
 import com.example.nationallibrary.Entity.Book;
-import com.example.nationallibrary.Entity.MyBook;
 import com.example.nationallibrary.Service.BookService;
-import com.example.nationallibrary.Service.MyBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +14,9 @@ import java.util.List;
 public class BookController {
     @Autowired
     private BookService bookService;
-    @Autowired
-    private MyBookService myBookService;
     @GetMapping("/")
-    public String home(){
+    public String home(Model model){
+        model.addAttribute("ap_url","testApi2");
         return "home";
     }
     @GetMapping("/book_register")
@@ -36,18 +33,8 @@ public class BookController {
         bookService.save(b);
         return "redirect:/available_book";
     }
-    @GetMapping("/my_books")
-    public ModelAndView getMyBook(){
-        List<MyBook> list = myBookService.getAllBook();
-        return new ModelAndView("myBooks","books",list);
-    }
-    @RequestMapping("/mylist/{id}")
-    public String getMyList(@PathVariable("id") int id){
-        Book b = bookService.getBookById(id);
-        MyBook mb = new MyBook(b.getId(),b.getName(),b.getAuthor(),b.getPrice());
-        myBookService.save(mb);
-        return "redirect:/my_books";
-    }
+
+
     @RequestMapping("/editBook/{id}")
     public String editBook(@PathVariable("id") int id, Model model){
         Book b = bookService.getBookById(id);

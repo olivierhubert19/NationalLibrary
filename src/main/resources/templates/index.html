@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Book List</title>
+</head>
+<body>
+<table id="bookTable">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Author</th>
+    <th>Price</th>
+  </tr>
+</table>
+
+<script>
+  // Define the API URL
+  const apiUrl = "/testApi2";
+
+  // Call the API using AJAX
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", apiUrl);
+  xhr.onload = () => {
+    if (xhr.status === 200) {
+      // Parse the response data
+      const books = JSON.parse(xhr.responseText);
+
+      // Add the books to the table
+      const table = document.getElementById("bookTable");
+      for (const book of books) {
+        const row = table.insertRow();
+        row.insertCell().innerHTML = book.id;
+        row.insertCell().innerHTML = book.name;
+        row.insertCell().innerHTML = book.author;
+        row.insertCell().innerHTML = book.price;
+      }
+    } else {
+      console.error(`Failed to fetch books: ${xhr.statusText}`);
+    }
+  };
+  xhr.send();
+</script>
+</body>
+</html>
