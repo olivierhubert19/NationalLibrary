@@ -8,16 +8,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Book {
+@NoArgsConstructor
+public class Reader {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String author;
-    private double price;
-    private int year;
+    private String addrres;
+    private String tel;
+    private String emal;
+    private Date birthday;
 }
