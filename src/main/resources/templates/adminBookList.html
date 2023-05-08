@@ -20,17 +20,26 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
+          <a class="nav-link active text-white" aria-current="page" href="/admin/returnHome">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="available_book">Available Books</a>
+          <a class="nav-link text-white" href="/admin/returnAvailableBook">Sách trong thư viện</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="my_books">My Books</a>
+          <a class="nav-link text-white" href="/admin/ListPhieuMuon">Phiếu mượn </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/admin/ListPhieuTra">Phiếu trả </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/admin/book_register">Thêm sách mới</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/admin/Reader">Độc giả</a>
         </li>
       </ul>
       <div>
-        <a class="nav-link text-white" href="book_register">New Book</a>
+        <a class="nav-link text-white" href="/logout">Đăng xuất</a>
       </div>
     </div>
   </div>
@@ -40,21 +49,24 @@
     <thead>
     <tr>
       <th scope="col">Id</th>
-      <th scope="col">Name</th>
-      <th scope="col">Author</th>
-      <th scope="col">Price</th>
+      <th scope="col">Tên sách</th>
+      <th scope="col">Tác giả</th>
+      <th scope="col">Giá</th>
+      <th scope="col">Năm xuất bản</th>
       <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="b:${books}">
+    <tr th:each="b:${list}">
       <th th:text="${b.id}"></th>
       <td th:text="${b.name}"></td>
       <td th:text="${b.author}"></td>
       <td th:text="${b.price}"></td>
-      <td><a class="btn btn-secondary btn-sm" th:href="@{/mylist/{id}(id=${b.id})}">Add To MyBook</a>
-      <a th:href="@{/deleteBook/{id}(id=${b.id})}"><i  class="fa-solid fa-trash "></i></a>
-      <a th:href="@{/editBook/{id}(id=${b.id})}"><i  class="fa-solid fa-pen-to-square "></i></a></td>
+      <td th:text="${b.year}"></td>
+      <td>
+<!--        <a class="btn btn-secondary btn-sm" th:href="@{/mylist/{id}(id=${b.id})}">Add To MyBook</a>-->
+      <a th:href="@{/admin/deleteBook/{id}(id=${b.id})}"><i  class="fa-solid fa-trash "></i></a>
+      <a th:href="@{/admin/editBook/{id}(id=${b.id})}"><i  class="fa-solid fa-pen-to-square "></i></a></td>
     </tr>
     </tbody>
   </table>
