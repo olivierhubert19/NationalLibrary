@@ -5,6 +5,7 @@ import com.example.nationallibrary.Service.BookService;
 import com.example.nationallibrary.Service.PhieuMuonService;
 import com.example.nationallibrary.Service.PhieuTraService;
 import com.example.nationallibrary.Service.ReaderService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ public class AdminController {
     private PhieuTraService phieuTraService;
     @Autowired
     private ReaderService readerService;
+
     @GetMapping("/admin/returnHome")
     public String returnHome(@ModelAttribute("user") User user, Model model){
         model.addAttribute("user",user);
@@ -31,7 +33,9 @@ public class AdminController {
     }
 
     @GetMapping("/admin/returnAvailableBook")
-    public String availableBook(@ModelAttribute("user") User user,Model model){
+    public String availableBook(@ModelAttribute("user") User user, Model model, HttpSession session){
+        user = (User) session.getAttribute("user");
+        System.out.println(user);
         List<Book> list = bookService.getAllBook();
         model.addAttribute("user",user);
         model.addAttribute("list",list);
@@ -41,6 +45,7 @@ public class AdminController {
     @GetMapping("/admin/ListPhieuMuon")
     public String ListPhieuMuon(@ModelAttribute("user") User user,Model model){
         List<PhieuMuon> list = phieuMuonService.getAll();
+        System.out.println("phieumuon:" + list.size());
         model.addAttribute("list",list);
         model.addAttribute("user",user);
         return "adminPhieuMuon";
@@ -48,10 +53,12 @@ public class AdminController {
     @GetMapping("/admin/ListPhieuTra")
     public String ListPhieuTra(@ModelAttribute("user") User user, Model model){
         List<PhieuTra> list = phieuTraService.getAll();
-        model.addAttribute("list",list);
+        model.addAttribute("lists",list);
         model.addAttribute("user",user);
         return "adminPhieuTra";
     }
+
+
     @GetMapping("/admin/Reader")
     public String ListReader(@ModelAttribute("user") User user, Model model){
         List<Reader> list = readerService.getAll();

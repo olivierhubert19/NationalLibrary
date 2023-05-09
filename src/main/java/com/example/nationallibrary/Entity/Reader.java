@@ -19,8 +19,8 @@ public class Reader {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    private String addrres;
+    private String address;
     private String tel;
-    private String emal;
+    private String email;
     private Date birthday;
 }

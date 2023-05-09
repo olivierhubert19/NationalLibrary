@@ -3,8 +3,11 @@ package com.example.nationallibrary.Controller;
 
 import com.example.nationallibrary.Entity.User;
 import com.example.nationallibrary.Service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,15 +27,28 @@ public class HomeController {
 
 
     @PostMapping("/loginCheck")
-    public ModelAndView loginCheck(@ModelAttribute("user") User user) {
+    public String loginCheck(@ModelAttribute("user") User user, Model model, HttpServletRequest request) {
         user = userService.checkLogin(user.getUsername(), user.getPassword());
         if (user != null) {
-            if (user.getRole().equals("ADMIN")) return new ModelAndView("adminHome", "user", user);
-            else return new ModelAndView("userhome", "user", user);
+            if (user.getRole().equals("ADMIN")){
+                model.addAttribute("user",user);
+                HttpSession session = request.getSession();
+                session.setAttribute("user",user);
+                return "redirect:/admin/Home";
+            }
+            else return "";
         } else {
-            return new ModelAndView("login", "user", new User());
+            return "";
         }
-
     }
+
+    @GetMapping("/admin/Home")
+    public String home(@ModelAttribute("user") User user,Model model,HttpSession session){
+        user = (User) session.getAttribute("user");
+        System.out.println(user);
+        model.addAttribute("user",user);
+        return "adminHome";
+    }
+
 
 }

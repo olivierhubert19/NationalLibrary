@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand text-white" href="#">Book Store</a>
+        <a class="navbar-brand text-white" href="#">Thư viện</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -48,7 +48,7 @@
     <table class="table table-striped table-hover" >
         <thead>
         <tr>
-            <th scope="col">Id</th>
+            <th scope="col">Số thứ tự</th>
             <th scope="col">Tên độc giả</th>
             <th scope="col">Địa chỉ</th>
             <th scope="col">Số điện thoại</th>
@@ -60,14 +60,15 @@
         <tr th:each="r:${list}">
             <th th:text="${r.id}"></th>
             <td th:text="${r.name}"></td>
-            <td th:text="${r.addrres}"></td>
+            <td th:text="${r.address}"></td>
             <td th:text="${r.tel}"></td>
             <td th:text="${r.email}"></td>
             <td th:text="${r.birthday}"></td>
             <td>
-                <!--        <a class="btn btn-secondary btn-sm" th:href="@{/mylist/{id}(id=${b.id})}">Add To MyBook</a>-->
-                <a th:href="@{/admin/deleteBook/{id}(id=${b.id})}"><i  class="fa-solid fa-trash "></i></a>
-                <a th:href="@{/admin/editBook/{id}(id=${b.id})}"><i  class="fa-solid fa-pen-to-square "></i></a></td>
+                <!--<a class="btn btn-secondary btn-sm" th:href="@{/mylist/{id}(id=${b.id})}">Add To MyBook</a>-->
+<!--                <a th:href="@{/admin/deleteBook/{id}(id=${b.id})}"><i  class="fa-solid fa-trash "></i></a>-->
+<!--                <a th:href="@{/admin/editBook/{id}(id=${b.id})}"><i  class="fa-solid fa-pen-to-square "></i></a>
+            </td>-->
         </tr>
         </tbody>
     </table>
