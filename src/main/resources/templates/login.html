@@ -14,7 +14,7 @@
                 <div class="card-header">
                     <h4>Login Form</h4>
                 </div>
-                <p th:if="${biloi}" class="alert alert-danger" th:text="${biloi}"></p>
+                <p th:if="${error}" class="alert alert-danger" th:text="${error}"></p>
                 <div class="card-body">
                     <form method="post" th:action="@{/loginCheck}" th:object="${user}">
                         <div class="mb-3">

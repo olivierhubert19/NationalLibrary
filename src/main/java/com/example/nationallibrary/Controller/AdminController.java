@@ -46,6 +46,9 @@ public class AdminController {
     public String ListPhieuMuon(@ModelAttribute("user") User user,Model model){
         List<PhieuMuon> list = phieuMuonService.getAll();
         System.out.println("phieumuon:" + list.size());
+        for(PhieuMuon a : list){
+            System.out.println(a);
+        }
         model.addAttribute("list",list);
         model.addAttribute("user",user);
         return "adminPhieuMuon";

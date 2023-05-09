@@ -48,15 +48,15 @@
     <form class="col-md-4 offset-md-4" th:action="@{/admin/save}" method="post" th:object="${book}">
         <input type="hidden" name="id" th:value="${book.id}">
         <div class="mb-3">
-            <label for="name" class="form-label">Name addres:</label>
+            <label for="name" class="form-label">Tên sách:</label>
             <input type="text" class="form-control" id="name" name="name" th:field="*{name}" />
         </div>
         <div class="mb-3">
-            <label for="author" class="form-label">Arthor:</label>
+            <label for="author" class="form-label">Tác giả:</label>
             <input type="text" class="form-control" id="author" name="author" th:field="*{author}" />
         </div>
         <div class="mb-3">
-            <label for="price" class="form-label">Price:</label>
+            <label for="price" class="form-label">Giá:</label>
             <input type="text" class="form-control" id="price" name="price" th:field="*{price}" />
         </div>
         <div class="mb-3">
