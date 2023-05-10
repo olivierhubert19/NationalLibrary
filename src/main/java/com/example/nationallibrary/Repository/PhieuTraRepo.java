@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PhieuTraRepo extends JpaRepository<PhieuTra,Integer> {
+
+    public PhieuTra getPhieuTraByIdPhieuMuon(int id);
 }

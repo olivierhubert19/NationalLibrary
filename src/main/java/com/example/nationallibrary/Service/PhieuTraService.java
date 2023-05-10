@@ -5,6 +5,7 @@ import com.example.nationallibrary.Repository.PhieuTraRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -12,7 +13,11 @@ public class PhieuTraService {
     @Autowired
     private PhieuTraRepo phieuTraRepo;
 
-    public List<PhieuTra> getAll(){
+    public List<PhieuTra> getAll() {
         return phieuTraRepo.findAll();
+    }
+
+    public PhieuTra getAllByIdPhieuMuon(int id) {
+        return phieuTraRepo.getPhieuTraByIdPhieuMuon(id);
     }
 }
