@@ -51,7 +51,7 @@
             <th scope="col">Số thứ tự</th>
             <th scope="col"> Người mượn </th>
             <th scope="col"> Ngày mượn </th>
-            <th scope="col"> Tình trạng </th>
+            <th scope="col"> Trạng thái </th>
         </tr>
     </thead>
     <tbody>
@@ -59,7 +59,7 @@
             <td th:text="${p.id}"></td>
             <td th:text="${p.idReader}"></td>
             <td th:text="${p.ngayMuon}"></td>
-            <td th:text="${p.tinhTrang}"></td>
+            <td th:text="${p.tinhTrang == true ? 'Đã duyệt' : 'Chưa duyệt'}"></td>
         </tr>
 
 
