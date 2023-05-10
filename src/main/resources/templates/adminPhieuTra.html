@@ -52,6 +52,7 @@
             <th scope="col">Ngày mượn</th>
             <th scope="col"> Phiếu mượn </th>
             <th scope="col"> Trạng thái </th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -60,6 +61,7 @@
             <td th:text="${p.idPhieuMuon}"></td>
             <td th:text="${p.ngayTra}"></td>
             <td th:text="${p.tinhTrang == true ? 'Đã duyệt' : 'Chưa duyệt'}"></td>
+            <td th:if="${not p.tinhTrang}"><a class="btn btn-primary" th:href="@{/admin/duyetPhieuMuon/{id}(id=${p.id})}">Duyệt</a></td>
         </tr>
         </tbody>
 

@@ -17,6 +17,10 @@ public class PhieuTraService {
         return phieuTraRepo.findAll();
     }
 
+    public void Save(PhieuTra pt){
+        phieuTraRepo.save(pt);
+    }
+
     public PhieuTra getAllByIdPhieuMuon(int id) {
         return phieuTraRepo.getPhieuTraByIdPhieuMuon(id);
     }
