@@ -14,12 +14,10 @@ import java.util.Date;
 public class PhieuMuon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private int id;
-
-    private Integer idReader;
-
+    private int idReader;
     private Date ngayMuon;
+    private boolean tinhTrang;
 
     private Boolean tinhTrang;
 

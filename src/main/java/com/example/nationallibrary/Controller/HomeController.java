@@ -36,8 +36,7 @@ public class HomeController {
                     HttpSession session = request.getSession();
                     session.setAttribute("user", user);
                     return "redirect:/admin/Home";
-                }
-                else {
+                } else{
                     model.addAttribute("user", user);
                     HttpSession session = request.getSession();
                     session.setAttribute("user", user);

@@ -45,27 +45,31 @@
     </div>
 </nav>
 <div class="container my-5 col-6">
-    <table class="table table-striped table-hover">
-    <thead>
+    <table class="table table-striped table-hover ">
+        <thead>
         <tr>
             <th scope="col">Số thứ tự</th>
-            <th scope="col"> Người mượn </th>
-            <th scope="col"> Ngày mượn </th>
-            <th scope="col"> Tình trạng </th>
+            <th scope="col">Người mượn</th>
+            <th scope="col">Ngày mượn</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
-    </thead>
-    <tbody>
-        <tr th:each ="p:${list}">
+        </thead>
+        <tbody>
+        <tr th:each="p:${list}" th:attr="data-href=@{/admin/chitietPhieuMuon/{id}(id=${p.id})}" th:onclick="|window.location.href='/admin/chitietPhieuMuon/${p.id}';|">
             <td th:text="${p.id}"></td>
             <td th:text="${p.idReader}"></td>
             <td th:text="${p.ngayMuon}"></td>
-            <td th:text="${p.tinhTrang}"></td>
+            <td th:text="${p.tinhTrang == true ? 'Đã duyệt' : 'Chưa duyệt'}"></td>
+            <td th:if="${not p.tinhTrang}"><a class="btn btn-primary" th:href="@{/admin/duyetPhieuMuon/{id}(id=${p.id})}">Duyệt</a></td>
+            <td th:if="${p.tinhTrang}"></td>
+            <td th:if="${not p.tinhTrang}"><a class="btn btn-secondary" th:href="@{/admin/xoaPhieuMuon/{id}(id=${p.id})}">Xóa</a></td>
+            <td th:if="${p.tinhTrang}"></td>
         </tr>
-
-
-    </tbody>
-
+        </tbody>
     </table>
 </div>
+
 </body>
 </html>
