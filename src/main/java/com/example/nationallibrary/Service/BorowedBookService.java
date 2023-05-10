@@ -1,6 +1,7 @@
 package com.example.nationallibrary.Service;
 
 import com.example.nationallibrary.Entity.BorowedBook;
+import com.example.nationallibrary.Entity.PhieuMuon;
 import com.example.nationallibrary.Repository.BookRepo;
 import com.example.nationallibrary.Repository.BorowedBookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,11 @@ public class BorowedBookService {
     private BorowedBookRepo borowedBookRepo;
 
     public void save(BorowedBook bb){ borowedBookRepo.save(bb); }
-
+    public void delete(BorowedBook borowedBook){
+        borowedBookRepo.delete(borowedBook);
+    }
     public List<BorowedBook> getByIdPhieuMuon(int idPhieuMuon){
         return borowedBookRepo.getBorowedBookByIdPhieuMuon(idPhieuMuon);
     }
-
 
 }

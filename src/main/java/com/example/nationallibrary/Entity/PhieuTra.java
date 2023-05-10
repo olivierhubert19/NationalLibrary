@@ -22,4 +22,9 @@ public class PhieuTra {
     private Date ngayTra;
     private boolean tinhTrang;
 
+    public PhieuTra(int idPhieuMuon, Date ngayTra, boolean tinhTrang) {
+        this.idPhieuMuon = idPhieuMuon;
+        this.ngayTra = ngayTra;
+        this.tinhTrang = tinhTrang;
+    }
 }

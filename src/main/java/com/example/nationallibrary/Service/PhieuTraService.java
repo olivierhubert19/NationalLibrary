@@ -15,4 +15,8 @@ public class PhieuTraService {
     public List<PhieuTra> getAll(){
         return phieuTraRepo.findAll();
     }
+
+    public void Save(PhieuTra pt){
+        phieuTraRepo.save(pt);
+    }
 }

@@ -20,6 +20,5 @@ public class BorowedBook {
     private int id;
     private Date ngayTra;
     private int idBook;
-    private int idPhieuTra;
     private int idPhieuMuon;
 }
