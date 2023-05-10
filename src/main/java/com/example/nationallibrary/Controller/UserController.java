@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -105,6 +106,7 @@ public class UserController {
             List<Book> list = bookService.getAllBook();
             model.addAttribute("user", user);
             model.addAttribute("list", list);
+            model.addAttribute("successMessage", "Thêm sách vào phiếu mượn thành công!");
         } catch (Exception e) {
             e.printStackTrace();
         }
