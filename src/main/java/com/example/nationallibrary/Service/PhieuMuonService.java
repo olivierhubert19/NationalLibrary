@@ -24,4 +24,9 @@ public class PhieuMuonService {
     public List<PhieuMuon> getAllByIdReaderAndTinhTrang(int id,boolean tinhTrang){
         return phieuMuonRepo.getAllByIdReaderAndAndTinhTrang(id,tinhTrang);
     }
+
+    public PhieuMuon getById(int id){
+        return phieuMuonRepo.getById(id);
+    }
+
 }

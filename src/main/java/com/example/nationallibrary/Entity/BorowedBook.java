@@ -20,6 +20,12 @@ public class BorowedBook {
     private int id;
     private Date ngayTra;
     private int idBook;
-    private int idPhieuTra;
+//    private int idPhieuTra;
     private int idPhieuMuon;
+
+    public BorowedBook(Date ngayTra, int idBook, int idPhieuMuon) {
+        this.ngayTra = ngayTra;
+        this.idBook = idBook;
+        this.idPhieuMuon = idPhieuMuon;
+    }
 }

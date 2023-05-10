@@ -20,4 +20,5 @@ public class PhieuTraService {
     public PhieuTra getAllByIdPhieuMuon(int id) {
         return phieuTraRepo.getPhieuTraByIdPhieuMuon(id);
     }
+
 }

@@ -1,13 +1,7 @@
 package com.example.nationallibrary.Controller;
 
-import com.example.nationallibrary.Entity.Book;
-import com.example.nationallibrary.Entity.PhieuMuon;
-import com.example.nationallibrary.Entity.PhieuTra;
-import com.example.nationallibrary.Entity.User;
-import com.example.nationallibrary.Service.BookService;
-import com.example.nationallibrary.Service.PhieuMuonService;
-import com.example.nationallibrary.Service.PhieuTraService;
-import com.example.nationallibrary.Service.UserService;
+import com.example.nationallibrary.Entity.*;
+import com.example.nationallibrary.Service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +26,9 @@ public class UserController {
     @Autowired
     private PhieuTraService phieuTraService;
 
+    @Autowired
+    private BorowedBookService borowedBookService;
+
     @GetMapping(path = {"/user/Home", "/user/returnHome"})
     public String userHome() {
         return "userhome";
@@ -40,7 +37,6 @@ public class UserController {
     @GetMapping(path = {"/user/returnAvailableBook"})
     public String goToUserAvailableBook(@ModelAttribute("user") User user, Model model, HttpSession session) {
         user = (User) session.getAttribute("user");
-        System.out.println(user);
         List<Book> list = bookService.getAllBook();
         model.addAttribute("user", user);
         model.addAttribute("list", list);
@@ -69,13 +65,11 @@ public class UserController {
             for (int i = 0; i < listPhieuMuon.size(); i++) {
                 try {
                     PhieuTra l = phieuTraService.getAllByIdPhieuMuon(listPhieuMuon.get(i).getId());
-                    if(l!=null) list.add(l);
-                    System.out.println("Log goToUserPhieuTra1 " + l);
+                    if (l != null) list.add(l);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            System.out.println("Log goToUserPhieuTra2 " + list.size());
             model.addAttribute("list", list);
             model.addAttribute("user", user);
         } catch (Exception e) {
@@ -88,16 +82,32 @@ public class UserController {
     public String addToPhieuMuon(@PathVariable("id") int id, @ModelAttribute("user") User user, Model model, HttpSession httpSession) {
         try {
             user = (User) httpSession.getAttribute("user");
-            List<PhieuMuon> list = phieuMuonService.getAllByIdReaderAndTinhTrang(user.getId(),false);
+            List<PhieuMuon> list = phieuMuonService.getAllByIdReaderAndTinhTrang(user.getId(), false);
             Book book = bookService.getBookById(id);
             model.addAttribute("list", list);
             model.addAttribute("user", user);
             model.addAttribute("book", book);
-            System.out.println("log addToPhieuMuon " + book);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "userAddPhieuMuon";
+    }
+
+    @RequestMapping(path = {"/user/actionAddPhieuMuon/{id}/{idBook}"})
+    public String addToClosePhieuMuon(@PathVariable("id") int idPhieuMuon, @PathVariable("idBook") int idBook, @ModelAttribute("user") User user, Model model, HttpSession httpSession) {
+        try {
+            System.out.println("id phieu muon: " + idPhieuMuon);
+            System.out.println("id book: " + idBook);
+            PhieuMuon p = phieuMuonService.getById(idPhieuMuon);
+            borowedBookService.save(new BorowedBook(p.getNgayMuon(), idBook, idPhieuMuon));
+            user = (User) httpSession.getAttribute("user");
+            List<Book> list = bookService.getAllBook();
+            model.addAttribute("user", user);
+            model.addAttribute("list", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "userBookList";
     }
 
 }
