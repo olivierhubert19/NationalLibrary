@@ -66,8 +66,8 @@
 <!--            <td th:text="${b.price}"></td>-->
             <td th:text="${b.year}"></td>
             <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/addMyBook/{id}(id=${b.id})}">Thêm sách vào phiếu
-                    mượn </a>
+                <a class="btn btn-primary btn-sm" th:href="@{/user/addToPhieuMuon/{id}(id=${b.id})}">Thêm sách vào phiếu
+                    mượn </a></td>
                 <!--        <a th:href="@{/admin/deleteBook/{id}(id=${b.id})}"><i  class="fa-solid fa-trash "></i></a>-->
                 <!--        <a th:href="@{/admin/editBook/{id}(id=${b.id})}"><i  class="fa-solid fa-pen-to-square "></i></a></td>-->
         </tr>

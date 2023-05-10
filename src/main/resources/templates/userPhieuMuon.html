@@ -42,7 +42,7 @@
   <table class="table table-striped table-hover">
     <thead>
     <tr>
-      <th scope="col">Số thứ tự</th>
+      <th scope="col">Id phiếu mượn</th>
       <th scope="col"> Người mượn </th>
       <th scope="col"> Ngày mượn </th>
       <th scope="col"> Trạng thái </th>
@@ -52,7 +52,7 @@
     <tr th:each ="p:${list}" th:attr="data-href=@{/user/detailPhieuMuon/{id}(id=${p.id})}"
         th:onclick="|window.location.href='/user/detailPhieuMuon/${p.id}';|">
       <td th:text="${p.id}"></td>
-      <td th:text="${p.idReader}"></td>
+      <td th:text="Tôi"></td>
       <td th:text="${p.ngayMuon}"></td>
       <td th:text="${p.tinhTrang == true ? 'Đã duyệt' : 'Chưa duyệt'}"></td>
     </tr>

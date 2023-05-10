@@ -17,7 +17,11 @@ public class PhieuMuonService {
         return phieuMuonRepo.findAll();
     }
 
-    public List<PhieuMuon> getAllById(int id){
-        return phieuMuonRepo.findAllById(Collections.singleton(id));
+    public List<PhieuMuon> getAllByIdReader(int id){
+        return phieuMuonRepo.getAllByIdReader(id);
+    }
+
+    public List<PhieuMuon> getAllByIdReaderAndTinhTrang(int id,boolean tinhTrang){
+        return phieuMuonRepo.getAllByIdReaderAndAndTinhTrang(id,tinhTrang);
     }
 }

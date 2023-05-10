@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +51,7 @@ public class UserController {
     public String goToUserPhieuMuon(@ModelAttribute("user") User user, Model model, HttpSession httpSession) {
         try {
             user = (User) httpSession.getAttribute("user");
-            List<PhieuMuon> list = phieuMuonService.getAllById(user.getId());
+            List<PhieuMuon> list = phieuMuonService.getAllByIdReader(user.getId());
             model.addAttribute("list", list);
             model.addAttribute("user", user);
         } catch (Exception e) {
@@ -62,14 +64,18 @@ public class UserController {
     public String goToUserPhieuTra(@ModelAttribute("user") User user, Model model, HttpSession httpSession) {
         try {
             user = (User) httpSession.getAttribute("user");
-            List<PhieuMuon> listPhieuMuon = phieuMuonService.getAllById(user.getId());
+            List<PhieuMuon> listPhieuMuon = phieuMuonService.getAllByIdReader(user.getId());
             List<PhieuTra> list = new ArrayList<>();
             for (int i = 0; i < listPhieuMuon.size(); i++) {
-                PhieuTra l = phieuTraService.getAllByIdPhieuMuon(listPhieuMuon.get(i).getId());
-                list.add(l);
-                System.out.println("Log goToUserPhieuTra " + l);
+                try {
+                    PhieuTra l = phieuTraService.getAllByIdPhieuMuon(listPhieuMuon.get(i).getId());
+                    if(l!=null) list.add(l);
+                    System.out.println("Log goToUserPhieuTra1 " + l);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-            System.out.println("Log goToUserPhieuTra " + list.size());
+            System.out.println("Log goToUserPhieuTra2 " + list.size());
             model.addAttribute("list", list);
             model.addAttribute("user", user);
         } catch (Exception e) {
@@ -78,5 +84,20 @@ public class UserController {
         return "userPhieuTra";
     }
 
+    @RequestMapping(path = {"/user/addToPhieuMuon/{id}"})
+    public String addToPhieuMuon(@PathVariable("id") int id, @ModelAttribute("user") User user, Model model, HttpSession httpSession) {
+        try {
+            user = (User) httpSession.getAttribute("user");
+            List<PhieuMuon> list = phieuMuonService.getAllByIdReaderAndTinhTrang(user.getId(),false);
+            Book book = bookService.getBookById(id);
+            model.addAttribute("list", list);
+            model.addAttribute("user", user);
+            model.addAttribute("book", book);
+            System.out.println("log addToPhieuMuon " + book);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "userAddPhieuMuon";
+    }
 
 }
