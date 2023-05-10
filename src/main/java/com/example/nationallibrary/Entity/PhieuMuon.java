@@ -22,4 +22,10 @@ public class PhieuMuon {
     private Date ngayMuon;
 
     private Boolean tinhTrang;
+
+    public PhieuMuon(Integer idReader, Date ngayMuon, Boolean tinhTrang) {
+        this.idReader = idReader;
+        this.ngayMuon = ngayMuon;
+        this.tinhTrang = tinhTrang;
+    }
 }

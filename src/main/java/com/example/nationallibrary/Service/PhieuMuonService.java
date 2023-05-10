@@ -29,4 +29,8 @@ public class PhieuMuonService {
         return phieuMuonRepo.getById(id);
     }
 
+    public void savePhieuMuon(PhieuMuon p){
+        phieuMuonRepo.save(p);
+    }
+
 }

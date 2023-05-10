@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -108,6 +109,24 @@ public class UserController {
             e.printStackTrace();
         }
         return "userBookList";
+    }
+
+    @RequestMapping(path = {"/userAddNewTicker/{idBook}"})
+    public String addNewTicket(@PathVariable("idBook") int id, @ModelAttribute("user") User user, Model model, HttpSession httpSession){
+        try{
+            user = (User) httpSession.getAttribute("user");
+            PhieuMuon p = new PhieuMuon(user.getId(),new Date(),false);
+            phieuMuonService.savePhieuMuon(p);
+            List<PhieuMuon> list = phieuMuonService.getAllByIdReaderAndTinhTrang(user.getId(), false);
+            Book book = bookService.getBookById(id);
+            model.addAttribute("list", list);
+            model.addAttribute("user", user);
+            model.addAttribute("book", book);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return "userAddPhieuMuon";
     }
 
 }

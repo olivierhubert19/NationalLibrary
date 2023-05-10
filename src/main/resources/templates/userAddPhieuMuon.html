@@ -51,7 +51,7 @@
         <thead>
         <tr>
             <th scope="col">Id phiếu mượn</th>
-            <th scope="col"> Người mượn</th>
+            <!--            <th scope="col"> Người mượn</th>-->
             <th scope="col"> Ngày mượn</th>
             <th scope="col"> Trạng thái</th>
         </tr>
@@ -59,11 +59,21 @@
         <tbody>
         <tr th:each="p:${list}">
             <td th:text="${p.id}"></td>
-            <td th:text="Tôi"></td>
-            <td th:text="${p.ngayMuon}"></td>id phieu muon
+            <!--            <td th:text="Tôi"></td>-->
+            <td th:text="${p.ngayMuon}"></td>
             <td th:text="${p.tinhTrang == true ? 'Đã duyệt' : 'Chưa duyệt'}"></td>
             <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/user/actionAddPhieuMuon/{id}/{idBook}(id=${p.id},idBook=${book.id})}">Thêm</a></td>
+                <a class="btn btn-primary btn-sm"
+                   th:href="@{/user/actionAddPhieuMuon/{id}/{idBook}(id=${p.id},idBook=${book.id})}">Thêm</a></td>
+        </tr>
+        <tr>
+            <td>
+                <a class="btn btn-primary btn-sm" th:href="@{/userAddNewTicker/{idBook}(idBook=${book.id})}">Phiếu mượn
+                    mới</a>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
         </tbody>
     </table>
