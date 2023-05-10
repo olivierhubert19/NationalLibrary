@@ -49,7 +49,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each ="p:${list}">
+    <tr th:each ="p:${list}" th:attr="data-href=@{/user/detailPhieuMuon/{id}(id=${p.id})}"
+        th:onclick="|window.location.href='/user/detailPhieuMuon/${p.id}';|">
       <td th:text="${p.id}"></td>
       <td th:text="${p.idReader}"></td>
       <td th:text="${p.ngayMuon}"></td>
