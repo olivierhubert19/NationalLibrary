@@ -114,21 +114,41 @@ public class UserController {
     }
 
     @RequestMapping(path = {"/userAddNewTicker/{idBook}"})
-    public String addNewTicket(@PathVariable("idBook") int id, @ModelAttribute("user") User user, Model model, HttpSession httpSession){
-        try{
+    public String addNewTicket(@PathVariable("idBook") int id, @ModelAttribute("user") User user, Model model, HttpSession httpSession) {
+        try {
             user = (User) httpSession.getAttribute("user");
-            PhieuMuon p = new PhieuMuon(user.getId(),new Date(),false);
+            PhieuMuon p = new PhieuMuon(user.getId(), new Date(), false);
             phieuMuonService.savePhieuMuon(p);
             List<PhieuMuon> list = phieuMuonService.getAllByIdReaderAndTinhTrang(user.getId(), false);
             Book book = bookService.getBookById(id);
             model.addAttribute("list", list);
             model.addAttribute("user", user);
             model.addAttribute("book", book);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "userAddPhieuMuon";
     }
+
+    @RequestMapping(path = {"/user/detailPhieuMuon/{id}"})
+    public String detailPhieuMuon(@PathVariable("id") int id, @ModelAttribute("user") User user, Model model, HttpSession httpSession) {
+        try {
+            PhieuMuon p = phieuMuonService.getById(id);
+            model.addAttribute("phieumuon", p);
+            List<BorowedBook> tmp = borowedBookService.getByIdPhieuMuon(id);
+            List<Book> list = new ArrayList<>();
+            for(int i=0;i<tmp.size();i++){
+                Book b = bookService.getBookById(tmp.get(i).getIdBook());
+                if(b!=null) list.add(b);
+            }
+            model.addAttribute("list", list);
+            System.out.println("Log "+p);
+            System.out.println("Log "+list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "detailPhieuMuon";
+    }
+
 
 }
