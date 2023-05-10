@@ -17,8 +17,6 @@ public class PhieuMuon {
     private int id;
     private int idReader;
     private Date ngayMuon;
-    private boolean tinhTrang;
-
     private Boolean tinhTrang;
 
     public PhieuMuon(Integer idReader, Date ngayMuon, Boolean tinhTrang) {
