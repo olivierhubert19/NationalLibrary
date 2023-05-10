@@ -16,6 +16,13 @@ public class PhieuMuonService {
     @Autowired
     private DateConverter dateConverter;
 
+    public void Delete(PhieuMuon pm){
+        phieuMuonRepo.delete(pm);
+    }
+
+    public void Save(PhieuMuon pm){
+        phieuMuonRepo.save(pm);
+    }
     public List<PhieuMuon> getAll(){
         List<PhieuMuon> list = phieuMuonRepo.findAll();
         for(PhieuMuon pm : list){
@@ -29,4 +36,9 @@ public class PhieuMuonService {
         }
         return phieuMuonRepo.findAll();
     }
+
+    public PhieuMuon getPhieuMuonById(int id){
+        return phieuMuonRepo.getPhieuMuonById(id);
+    }
+
 }

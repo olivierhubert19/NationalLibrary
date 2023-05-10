@@ -57,14 +57,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="r:${list}">
+        <tr th:each="r:${list}" >
             <th th:text="${r.id}"></th>
             <td th:text="${r.name}"></td>
             <td th:text="${r.address}"></td>
             <td th:text="${r.tel}"></td>
             <td th:text="${r.email}"></td>
             <td th:text="${r.birthday}"></td>
-            <td>
+<!--                <td>-->
                 <!--<a class="btn btn-secondary btn-sm" th:href="@{/mylist/{id}(id=${b.id})}">Add To MyBook</a>-->
 <!--                <a th:href="@{/admin/deleteBook/{id}(id=${b.id})}"><i  class="fa-solid fa-trash "></i></a>-->
 <!--                <a th:href="@{/admin/editBook/{id}(id=${b.id})}"><i  class="fa-solid fa-pen-to-square "></i></a>

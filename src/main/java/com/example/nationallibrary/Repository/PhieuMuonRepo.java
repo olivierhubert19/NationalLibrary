@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PhieuMuonRepo extends JpaRepository<PhieuMuon,Integer> {
+    PhieuMuon getPhieuMuonById(int id);
 }
