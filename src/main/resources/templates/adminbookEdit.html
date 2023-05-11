@@ -49,19 +49,19 @@
         <input type="hidden" name="id" th:value="${book.id}">
         <div class="mb-3">
             <label for="name" class="form-label">Name addres:</label>
-            <input type="text" class="form-control" id="name" name="name" th:field="*{name}"/>
+            <input type="text" class="form-control" id="name" name="name" th:field="*{name}" required/>
         </div>
         <div class="mb-3">
             <label for="author" class="form-label">Arthor:</label>
-            <input type="text" class="form-control" id="author" name="author" th:field="*{author}"/>
+            <input type="text" class="form-control" id="author" name="author" th:field="*{author}" required/>
         </div>
         <div class="mb-3">
             <label for="price" class="form-label">Price:</label>
-            <input type="text" class="form-control" id="price" name="price" th:field="*{price}"/>
+            <input type="text" class="form-control" id="price" name="price" th:field="*{price}" required/>
         </div>
         <div class="mb-3">
             <label for="price" class="form-label">Price:</label>
-            <input type="text" class="form-control" id="year" name="price" th:field="*{year}"/>
+            <input type="text" class="form-control" id="year" name="price" th:field="*{year}" required/>
         </div>
 
         <center><button type="submit" class="btn btn-primary">Submit</button></center>

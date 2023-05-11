@@ -11,7 +11,8 @@
   <script src="https://kit.fontawesome.com/0faddc1af8.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div th:if="${not #strings.isEmpty(error)}" class="alert alert-success" th:utext="${error}"></div>
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand text-white" href="#">Thư viện</a>
@@ -45,6 +46,17 @@
     </div>
   </div>
 </nav>
+<div id="errorMessage" th:if="${not #strings.isEmpty(error)}" class="alert alert-danger" th:utext="${error}"></div>
+<script>
+  // Lấy phần tử cần ẩn
+  var element = document.getElementById("errorMessage");
+  // Thiết lập thời gian hiển thị là 5 giây (5000 milliseconds)
+  var displayTime = 5000;
+  // Chờ trong khoảng thời gian xác định, sau đó ẩn phần tử
+  setTimeout(function() {
+    element.style.display = "none";
+  }, displayTime);
+</script>
 <div class="container my-5 col-6">
   <table class="table table-striped table-hover" >
     <thead>

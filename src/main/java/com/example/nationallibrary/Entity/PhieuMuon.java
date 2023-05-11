@@ -18,7 +18,7 @@ public class PhieuMuon {
     private int idReader;
     private Date ngayMuon;
     private Boolean tinhTrang;
-
+    private String nameReader;
     public PhieuMuon(Integer idReader, Date ngayMuon, Boolean tinhTrang) {
         this.idReader = idReader;
         this.ngayMuon = ngayMuon;

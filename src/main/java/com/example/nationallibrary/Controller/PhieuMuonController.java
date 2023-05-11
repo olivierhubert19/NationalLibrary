@@ -22,13 +22,13 @@ import java.util.List;
 @Controller
 public class PhieuMuonController {
     @Autowired
-    public PhieuMuonService phieuMuonService;
+    private PhieuMuonService phieuMuonService;
     @Autowired
-    public PhieuTraService phieuTraService;
+    private PhieuTraService phieuTraService;
     @Autowired
-    public BorowedBookService borowedBookService;
+    private BorowedBookService borowedBookService;
     @Autowired
-    public BookService bookService;
+    private BookService bookService;
 
     @GetMapping("/admin/chitietPhieuMuon/{id}")
     public String chiTietPhieuMuon(@PathVariable("id") int id, Model model){

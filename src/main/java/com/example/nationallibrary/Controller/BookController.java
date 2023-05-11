@@ -1,18 +1,23 @@
 package com.example.nationallibrary.Controller;
 
 import com.example.nationallibrary.Entity.Book;
+import com.example.nationallibrary.Entity.BorowedBook;
 import com.example.nationallibrary.Service.BookService;
+import com.example.nationallibrary.Service.BorowedBookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
 public class BookController {
     @Autowired
-    private final BookService bookService;
+    private BookService bookService;
+    @Autowired
+    private BorowedBookService borowedBookService;
 
     public BookController(BookService bookService) {
         this.bookService = bookService;
@@ -25,9 +30,14 @@ public class BookController {
     }
 
     @PostMapping("/admin/save")
-    public String addBook(@ModelAttribute Book b){
-        bookService.save(b);
-        return "redirect:/admin/returnAvailableBook";
+    public String addBook(@ModelAttribute Book b,Model model){
+        if(b.getName().equals("")||b.getAuthor().equals("")||b.getPrice()==0||b.getYear()==0){
+            model.addAttribute("error","Không thành công !!!");
+        }
+        else bookService.save(b);
+        List<Book> list = bookService.getAllBook();
+        model.addAttribute("list",list);
+        return "adminBookList";
     }
 
     @RequestMapping("/admin/editBook/{id}")
@@ -38,14 +48,16 @@ public class BookController {
     }
     @RequestMapping("/admin/deleteBook/{id}")
     public String deleteBook(@PathVariable("id") int id,Model model){
-        try {
-            bookService.deleteById(id);
-            return "redirect:/admin/returnAvailableBook";
-        }catch (DataIntegrityViolationException e){
+            BorowedBook bb = borowedBookService.getByIdBook(id);
+            if(bb!=null){
             model.addAttribute("error","Sách này đang được mượn");
+            }
+            else{
             bookService.deleteById(id);
-            return "redirect:/admin/returnAvailableBook";
+            }
+            List<Book> list = bookService.getAllBook();
+            model.addAttribute("list",list);
+            return "adminBookList";
         }
-
-    }
 }
+

@@ -59,7 +59,7 @@
         <tbody>
         <tr th:each="p:${list}" th:attr="data-href=@{/admin/chitietPhieuMuon/{id}(id=${p.id})}" th:onclick="|window.location.href='/admin/chitietPhieuMuon/${p.id}';|">
             <td th:text="${p.id}"></td>
-            <td th:text="${p.idReader}"></td>
+            <td th:text="${p.nameReader}"></td>
             <td th:text="${p.ngayMuon}"></td>
             <td th:text="${p.tinhTrang == true ? 'Đã duyệt' : 'Chưa duyệt'}"></td>
             <td th:if="${not p.tinhTrang}"><a class="btn btn-primary" th:href="@{/admin/duyetPhieuMuon/{id}(id=${p.id})}">Duyệt</a></td>

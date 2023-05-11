@@ -14,6 +14,9 @@ public class BorowedBookService {
     @Autowired
     private BorowedBookRepo borowedBookRepo;
 
+    public BorowedBook getByIdBook(int id){
+        return borowedBookRepo.getBorowedBookByIdBook(id);
+    }
     public void save(BorowedBook bb){ borowedBookRepo.save(bb); }
     public void delete(BorowedBook borowedBook){
         borowedBookRepo.delete(borowedBook);

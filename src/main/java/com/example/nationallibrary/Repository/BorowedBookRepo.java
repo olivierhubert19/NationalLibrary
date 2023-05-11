@@ -10,5 +10,5 @@ import java.util.List;
 public interface BorowedBookRepo extends JpaRepository<BorowedBook,Integer> {
     List<BorowedBook> getBorowedBookByIdPhieuMuon(int idPhieuMuon);
     Void deleteBorowedBookByIdPhieuMuon(int idPhieuMuon);
-
+    BorowedBook getBorowedBookByIdBook(int id);
 }

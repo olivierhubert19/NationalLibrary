@@ -48,6 +48,10 @@ public class AdminController {
         for(PhieuMuon a : list){
             System.out.println(a);
         }
+        for (PhieuMuon p : list) {
+            Reader reader = readerService.getById(p.getIdReader());
+            p.setNameReader(reader.getName());
+        }
         model.addAttribute("list",list);
         model.addAttribute("user",user);
         return "adminPhieuMuon";

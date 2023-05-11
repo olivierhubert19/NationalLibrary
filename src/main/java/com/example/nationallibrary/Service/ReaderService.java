@@ -11,7 +11,9 @@ import java.util.List;
 public class ReaderService {
     @Autowired
     private ReaderRepo readerRepo;
-
+    public Reader getById(int id){
+        return readerRepo.getById(id);
+    }
     public List<Reader> getAll(){
         return readerRepo.findAll();
     }
