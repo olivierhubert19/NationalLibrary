@@ -16,4 +16,8 @@ public class ReaderService {
         return readerRepo.findAll();
     }
 
+    public void save(Reader reader){
+        readerRepo.save(reader);
+    }
+
 }
