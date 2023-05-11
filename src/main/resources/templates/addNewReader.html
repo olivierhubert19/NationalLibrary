@@ -43,6 +43,18 @@
         </div>
     </div>
 </nav>
+<div id="success-message" th:if="${error}" class="alert alert-danger" role="alert"
+     th:text="${error}">
+
+</div>
+<script type="text/javascript">
+    setTimeout(function () {
+        var successMessage = document.getElementById('success-message');
+        if (successMessage) {
+            successMessage.style.display = 'none';
+        }
+    }, 2000);
+</script>
 <div class="container my-5 p-5" style="border:1px solid black ">
     <h4 class="text-center">Tạo người dùng mới</h4>
     <form class="col-md-4 offset-md-4" th:action="@{/admin/saveNewReader}" method="post" th:object="${reader}">

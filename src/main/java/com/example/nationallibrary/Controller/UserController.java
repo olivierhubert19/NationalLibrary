@@ -187,6 +187,7 @@ public class UserController {
     public String saveNewReader(@ModelAttribute Reader reader, Model model, HttpSession httpSession) {
         try {
             if(reader.getName().equals("")||reader.getAddress().equals("")||reader.getTel().equals("")||reader.getEmail().equals("")){
+                model.addAttribute("error","Không được để trống các trường!!!");
                 model.addAttribute("reader", new Reader());
                 return "addNewReader";
             }
@@ -206,4 +207,5 @@ public class UserController {
         }
         return "adminReader";
     }
+
 }
