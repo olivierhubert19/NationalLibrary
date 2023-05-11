@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller
 public class UserController {
@@ -193,7 +195,8 @@ public class UserController {
             }
             readerService.save(reader);
             String username = "";
-            String[] tmp = reader.getName().split(" ");
+            String name = removeAccent(reader.getName());
+            String[] tmp = name.split(" ");
             if (tmp.length > 1) {
                 for (int i = 0; i < tmp.length - 1; i++) {
                     username += tmp[i].substring(0, 1).toLowerCase();
@@ -210,6 +213,12 @@ public class UserController {
             e.printStackTrace();
         }
         return "adminReader";
+    }
+
+    public static String removeAccent(String str) {
+        String temp = Normalizer.normalize(str, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(temp).replaceAll("").replaceAll("Đ", "D").replaceAll("đ", "d");
     }
 
 }
