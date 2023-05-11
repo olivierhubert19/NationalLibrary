@@ -137,13 +137,13 @@ public class UserController {
             model.addAttribute("phieumuon", p);
             List<BorowedBook> tmp = borowedBookService.getByIdPhieuMuon(id);
             List<Book> list = new ArrayList<>();
-            for(int i=0;i<tmp.size();i++){
+            for (int i = 0; i < tmp.size(); i++) {
                 Book b = bookService.getBookById(tmp.get(i).getIdBook());
-                if(b!=null) list.add(b);
+                if (b != null) list.add(b);
             }
             model.addAttribute("list", list);
-            System.out.println("Log "+p);
-            System.out.println("Log "+list);
+            System.out.println("Log " + p);
+            System.out.println("Log " + list);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -158,17 +158,22 @@ public class UserController {
             model.addAttribute("phieutra", phieuTra);
             List<BorowedBook> tmp = borowedBookService.getByIdPhieuMuon(p.getId());
             List<Book> list = new ArrayList<>();
-            for(int i=0;i<tmp.size();i++){
+            for (int i = 0; i < tmp.size(); i++) {
                 Book b = bookService.getBookById(tmp.get(i).getIdBook());
-                if(b!=null) list.add(b);
+                if (b != null) list.add(b);
             }
             model.addAttribute("list", list);
-            System.out.println("Log "+p);
-            System.out.println("Log "+list);
+            System.out.println("Log " + p);
+            System.out.println("Log " + list);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "detailPhieuTra";
     }
 
+    @GetMapping(path = {"/adminAddNewReader"})
+    public String addNewReader(@ModelAttribute("user") User user, Model model, HttpSession session) {
+        model.addAttribute("reader",new Reader());
+        return "addNewReader";
+    }
 }
