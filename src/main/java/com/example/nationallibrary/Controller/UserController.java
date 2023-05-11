@@ -31,6 +31,12 @@ public class UserController {
     @Autowired
     private BorowedBookService borowedBookService;
 
+    @Autowired
+    private ReaderService readerService;
+
+    @Autowired
+    private UserService userService;
+
     @GetMapping(path = {"/user/Home", "/user/returnHome"})
     public String userHome() {
         return "userhome";
@@ -137,18 +143,67 @@ public class UserController {
             model.addAttribute("phieumuon", p);
             List<BorowedBook> tmp = borowedBookService.getByIdPhieuMuon(id);
             List<Book> list = new ArrayList<>();
-            for(int i=0;i<tmp.size();i++){
+            for (int i = 0; i < tmp.size(); i++) {
                 Book b = bookService.getBookById(tmp.get(i).getIdBook());
-                if(b!=null) list.add(b);
+                if (b != null) list.add(b);
             }
             model.addAttribute("list", list);
-            System.out.println("Log "+p);
-            System.out.println("Log "+list);
+            System.out.println("Log " + p);
+            System.out.println("Log " + list);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "detailPhieuMuon";
     }
 
+    @RequestMapping(path = {"/user/detailPhieuTra/{id}"})
+    public String detailPhieuTra(@PathVariable("id") int id, @ModelAttribute("user") User user, Model model, HttpSession httpSession) {
+        try {
+            PhieuTra phieuTra = phieuTraService.getAllByIdPhieuMuon(id);
+            PhieuMuon p = phieuMuonService.getById(phieuTra.getId());
+            model.addAttribute("phieutra", phieuTra);
+            List<BorowedBook> tmp = borowedBookService.getByIdPhieuMuon(p.getId());
+            List<Book> list = new ArrayList<>();
+            for (int i = 0; i < tmp.size(); i++) {
+                Book b = bookService.getBookById(tmp.get(i).getIdBook());
+                if (b != null) list.add(b);
+            }
+            model.addAttribute("list", list);
+            System.out.println("Log " + p);
+            System.out.println("Log " + list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "detailPhieuTra";
+    }
 
+    @GetMapping(path = {"/adminAddNewReader"})
+    public String addNewReader(@ModelAttribute("user") User user, Model model, HttpSession session) {
+        model.addAttribute("reader", new Reader());
+        return "addNewReader";
+    }
+
+    @RequestMapping(path = {"/admin/saveNewReader"})
+    public String saveNewReader(@ModelAttribute Reader reader, Model model, HttpSession httpSession) {
+        try {
+            if(reader.getName().equals("")||reader.getAddress().equals("")||reader.getTel().equals("")||reader.getEmail().equals("")){
+                model.addAttribute("reader", new Reader());
+                return "addNewReader";
+            }
+            readerService.save(reader);
+            String username = "";
+            String[] tmp = reader.getName().split(" ");
+            for(int i=0;i<tmp.length;i++){
+                username += tmp[i].substring(0,1);
+            }
+            userService.save(new User(reader.getName(),username,"123456","USER"));
+            User user = (User) httpSession.getAttribute("user");
+            List<Reader> list = readerService.getAll();
+            model.addAttribute("list", list);
+            model.addAttribute("user", user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "adminReader";
+    }
 }
