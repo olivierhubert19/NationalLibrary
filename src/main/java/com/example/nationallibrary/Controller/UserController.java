@@ -150,5 +150,25 @@ public class UserController {
         return "detailPhieuMuon";
     }
 
+    @RequestMapping(path = {"/user/detailPhieuTra/{id}"})
+    public String detailPhieuTra(@PathVariable("id") int id, @ModelAttribute("user") User user, Model model, HttpSession httpSession) {
+        try {
+            PhieuTra phieuTra = phieuTraService.getAllByIdPhieuMuon(id);
+            PhieuMuon p = phieuMuonService.getById(phieuTra.getId());
+            model.addAttribute("phieutra", phieuTra);
+            List<BorowedBook> tmp = borowedBookService.getByIdPhieuMuon(p.getId());
+            List<Book> list = new ArrayList<>();
+            for(int i=0;i<tmp.size();i++){
+                Book b = bookService.getBookById(tmp.get(i).getIdBook());
+                if(b!=null) list.add(b);
+            }
+            model.addAttribute("list", list);
+            System.out.println("Log "+p);
+            System.out.println("Log "+list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "detailPhieuTra";
+    }
 
 }
