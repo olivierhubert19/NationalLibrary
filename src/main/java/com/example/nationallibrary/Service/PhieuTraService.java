@@ -13,6 +13,7 @@ public class PhieuTraService {
     @Autowired
     private PhieuTraRepo phieuTraRepo;
 
+    public PhieuTra getById(int id){return phieuTraRepo.getById(id);}
     public List<PhieuTra> getAll() {
         return phieuTraRepo.findAll();
     }
