@@ -1,14 +1,12 @@
 package com.example.nationallibrary.Controller;
 
 
-import com.example.nationallibrary.Entity.Book;
-import com.example.nationallibrary.Entity.BorowedBook;
-import com.example.nationallibrary.Entity.PhieuMuon;
-import com.example.nationallibrary.Entity.PhieuTra;
+import com.example.nationallibrary.Entity.*;
 import com.example.nationallibrary.Service.BookService;
 import com.example.nationallibrary.Service.BorowedBookService;
 import com.example.nationallibrary.Service.PhieuMuonService;
 import com.example.nationallibrary.Service.PhieuTraService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +30,15 @@ public class PhieuTraController {
     private BookService bookService;
 
     @RequestMapping("/admin/chitietPhieuTra/{id}")
-    public String chiTietPhieuTra(@PathVariable("id") int id, Model model){
+    public String chiTietPhieuTra(@PathVariable("id") int id, Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        try {
+            if (user == null) {
+                return "redirect:/login";
+            } else if (!user.getRole().equals("ADMIN")) return "redirect:/login";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         PhieuTra pt = phieuTraService.getById(id);
         System.out.println(pt);
         PhieuMuon pm = phieuMuonService.getById(pt.getIdPhieuMuon());

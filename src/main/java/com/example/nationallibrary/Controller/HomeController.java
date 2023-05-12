@@ -21,7 +21,8 @@ public class HomeController {
     private UserService userService;
 
     @GetMapping(path = {"/", "/logout", "/login"})
-    public ModelAndView login() {
+    public ModelAndView login(HttpSession session) {
+        session.invalidate();
         return new ModelAndView("login", "user", new User());
     }
 
@@ -53,8 +54,15 @@ public class HomeController {
 
 
     @GetMapping("/admin/Home")
-    public String home(@ModelAttribute("user") User user, Model model, HttpSession session) {
-        user = (User) session.getAttribute("user");
+    public String home( Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        try {
+            if (user == null) {
+                return "redirect:/login";
+            } else if (!user.getRole().equals("ADMIN")) return "redirect:/login";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         System.out.println(user);
         model.addAttribute("user", user);
         return "adminHome";

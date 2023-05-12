@@ -26,7 +26,15 @@ public class AdminController {
     private ReaderService readerService;
 
     @GetMapping("/admin/returnHome")
-    public String returnHome(@ModelAttribute("user") User user, Model model){
+    public String returnHome(Model model,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        try {
+            if (user == null) {
+                return "redirect:/login";
+            } else if (!user.getRole().equals("ADMIN")) return "redirect:/login";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         model.addAttribute("user",user);
         return "adminHome";
     }
@@ -34,6 +42,13 @@ public class AdminController {
     @GetMapping("/admin/returnAvailableBook")
     public String availableBook(@ModelAttribute("user") User user, Model model, HttpSession session){
         user = (User) session.getAttribute("user");
+        try {
+            if (user == null) {
+                return "redirect:/login";
+            } else if (!user.getRole().equals("ADMIN")) return "redirect:/login";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         System.out.println(user);
         List<Book> list = bookService.getAllBook();
         model.addAttribute("user",user);
@@ -42,7 +57,15 @@ public class AdminController {
     }
 
     @GetMapping("/admin/ListPhieuMuon")
-    public String ListPhieuMuon(@ModelAttribute("user") User user,Model model){
+    public String ListPhieuMuon(Model model,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        try {
+            if (user == null) {
+                return "redirect:/login";
+            } else if (!user.getRole().equals("ADMIN")) return "redirect:/login";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         List<PhieuMuon> list = phieuMuonService.getAll();
         System.out.println("phieumuon:" + list.size());
         for(PhieuMuon a : list){
@@ -57,7 +80,15 @@ public class AdminController {
         return "adminPhieuMuon";
     }
     @GetMapping("/admin/ListPhieuTra")
-    public String ListPhieuTra(@ModelAttribute("user") User user, Model model){
+    public String ListPhieuTra( Model model,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        try {
+            if (user == null) {
+                return "redirect:/login";
+            } else if (!user.getRole().equals("ADMIN")) return "redirect:/login";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         List<PhieuTra> list = phieuTraService.getAll();
         model.addAttribute("lists",list);
         model.addAttribute("user",user);
@@ -66,7 +97,15 @@ public class AdminController {
 
 
     @GetMapping("/admin/Reader")
-    public String ListReader(@ModelAttribute("user") User user, Model model){
+    public String ListReader(Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        try {
+            if (user == null) {
+                return "redirect:/login";
+            } else if (!user.getRole().equals("ADMIN")) return "redirect:/login";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         List<Reader> list = readerService.getAll();
         model.addAttribute("list",list);
         model.addAttribute("user",user);

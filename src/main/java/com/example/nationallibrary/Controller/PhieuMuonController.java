@@ -1,13 +1,11 @@
 package com.example.nationallibrary.Controller;
 
-import com.example.nationallibrary.Entity.Book;
-import com.example.nationallibrary.Entity.BorowedBook;
-import com.example.nationallibrary.Entity.PhieuMuon;
-import com.example.nationallibrary.Entity.PhieuTra;
+import com.example.nationallibrary.Entity.*;
 import com.example.nationallibrary.Service.BookService;
 import com.example.nationallibrary.Service.BorowedBookService;
 import com.example.nationallibrary.Service.PhieuMuonService;
 import com.example.nationallibrary.Service.PhieuTraService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +29,15 @@ public class PhieuMuonController {
     private BookService bookService;
 
     @GetMapping("/admin/chitietPhieuMuon/{id}")
-    public String chiTietPhieuMuon(@PathVariable("id") int id, Model model){
+    public String chiTietPhieuMuon(@PathVariable("id") int id, Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        try {
+            if (user == null) {
+                return "redirect:/login";
+            } else if (!user.getRole().equals("ADMIN")) return "redirect:/login";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         PhieuMuon p = phieuMuonService.getPhieuMuonById(id);
         model.addAttribute("phieumuon", p);
         List<BorowedBook> tmp = borowedBookService.getByIdPhieuMuon(id);
@@ -45,7 +51,15 @@ public class PhieuMuonController {
     }
 
     @RequestMapping("/admin/duyetPhieuMuon/{id}")
-    public String duyetPhieuMuon(@PathVariable("id") int id){
+    public String duyetPhieuMuon(@PathVariable("id") int id,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        try {
+            if (user == null) {
+                return "redirect:/login";
+            } else if (!user.getRole().equals("ADMIN")) return "redirect:/login";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         PhieuMuon pm = phieuMuonService.getPhieuMuonById(id);
         PhieuTra pt = new PhieuTra(pm.getId(),new Date(),false);
         phieuTraService.Save(pt);
@@ -54,7 +68,15 @@ public class PhieuMuonController {
         return "redirect:/admin/ListPhieuMuon";
     }
     @RequestMapping("/admin/xoaPhieuMuon/{id}")
-    public String xoaPhieuMuon(@PathVariable("id") int id){
+    public String xoaPhieuMuon(@PathVariable("id") int id, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        try {
+            if (user == null) {
+                return "redirect:/login";
+            } else if (!user.getRole().equals("ADMIN")) return "redirect:/login";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         PhieuMuon pm = phieuMuonService.getPhieuMuonById(id);
         List<BorowedBook> list = borowedBookService.getByIdPhieuMuon(id);
         for(BorowedBook b: list){

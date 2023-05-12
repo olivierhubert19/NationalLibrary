@@ -181,12 +181,28 @@ public class UserController {
 
     @GetMapping(path = {"/adminAddNewReader"})
     public String addNewReader(@ModelAttribute("user") User user, Model model, HttpSession session) {
+         user = (User) session.getAttribute("user");
+        try {
+            if (user == null) {
+                return "redirect:/login";
+            } else if (!user.getRole().equals("ADMIN")) return "redirect:/login";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         model.addAttribute("reader", new Reader());
         return "addNewReader";
     }
 
     @RequestMapping(path = {"/admin/saveNewReader"})
     public String saveNewReader(@ModelAttribute Reader reader, Model model, HttpSession httpSession) {
+        User user = (User) httpSession.getAttribute("user");
+        try {
+            if (user == null) {
+                return "redirect:/login";
+            } else if (!user.getRole().equals("ADMIN")) return "redirect:/login";
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         try {
             if (reader.getName().equals("") || reader.getAddress().equals("") || reader.getTel().equals("") || reader.getEmail().equals("")) {
                 model.addAttribute("error", "Không được để trống các trường!!!");
@@ -204,7 +220,7 @@ public class UserController {
             }
             username += tmp[tmp.length - 1].toLowerCase() + reader.getTel().substring(reader.getTel().length()-3);
             userService.save(new User(reader.getName(), username, "123456", "USER"));
-            User user = (User) httpSession.getAttribute("user");
+            user = (User) httpSession.getAttribute("user");
             List<Reader> list = readerService.getAll();
             model.addAttribute("success", "Thêm người dùng thành công!!!");
             model.addAttribute("list", list);
